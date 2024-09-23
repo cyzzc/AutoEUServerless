@@ -169,21 +169,6 @@ def handle_captcha_solved_result(solved: dict) -> str:
         print(solved)
         raise KeyError("未找到解析结果。")
 
-def handle_captcha_solved_result(solved_result):
-    if "error_message" in solved_result:
-        print(f"Captcha Solver Error: {solved_result['error_message']}")
-        # 如果错误信息包含 ERROR_ZERO_BALANCE，选择跳过当前账号
-        if "ERROR_ZERO_BALANCE" in solved_result['error_message']:
-            print("Captcha Solver 余额不足，跳过此账号的操作。")
-            return None  # 返回 None 表示跳过该任务
-        return None  # 处理其他错误，同样跳过任务
-    try:
-        return solved_result['captcha_code']
-    except KeyError:
-        print("未找到验证码解析结果，跳过此账号的操作。")
-        return None  # 处理 KeyError，跳过任务
-
-
 # 获取验证码解决器使用情况
 def get_captcha_solver_usage() -> dict:
     # 获取验证码解决器的使用情况# 
