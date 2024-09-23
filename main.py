@@ -169,6 +169,16 @@ def handle_captcha_solved_result(solved: dict) -> str:
         print(solved)
         raise KeyError("未找到解析结果。")
 
+def handle_captcha_solved_result(solved_result):
+    if "error_message" in solved_result:
+        print(f"Captcha Solver Error: {solved_result['error_message']}")
+        # 可以选择在此处重试或退出
+        return None
+    try:
+        return solved_result['captcha_code']
+    except KeyError:
+        raise KeyError("未找到解析结果。")
+
 # 获取验证码解决器使用情况
 def get_captcha_solver_usage() -> dict:
     # 获取验证码解决器的使用情况# 
